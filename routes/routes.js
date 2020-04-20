@@ -17,7 +17,6 @@ router.post('/category/create', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-    console.log(req.body);
     const hash = bcrypt.hashSync(req.body.password, salt);
     req.body.password = hash;
     const newUser = new User(req.body);
@@ -34,7 +33,10 @@ router.post('/login', (req, res, next) => {
     let user = User.findOne({email: req.body.email})
         .then( user => {
             if(user && bcrypt.compareSync(req.body.password, user.password)) {
-                return res.status(200).json({token: jwt.encode({userId: user.id}, secret)});
+                console.log(user);
+                return res.status(200).json({
+                token: jwt.encode({userId: user._id}, secret),
+                userId: user._id});
             }
 
             return res.status(404).json({message: 'Crendenciales Invalidas.'});

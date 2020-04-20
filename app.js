@@ -28,6 +28,9 @@ mongoose
   );
 
 const routes = require('./routes/routes.js');
+const routes2 = require('./routes/auth.js');
+
 app.use('/', routes);
+app.use('/auth', routes2);
 
 module.exports = app;
