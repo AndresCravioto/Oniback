@@ -21,7 +21,7 @@ router.post('/signup', (req, res, next) => {
     req.body.password = hash;
     const newUser = new User(req.body);
     newUser.save()
-    .then(test=>{
+    .then(() => {
         return res.json({message: 'Usuario creado.'});
     })
     .catch( error => {
@@ -33,7 +33,6 @@ router.post('/login', (req, res, next) => {
     let user = User.findOne({email: req.body.email})
         .then( user => {
             if(user && bcrypt.compareSync(req.body.password, user.password)) {
-                console.log(user);
                 return res.status(200).json({
                 token: jwt.encode({userId: user._id}, secret),
                 userId: user._id});
