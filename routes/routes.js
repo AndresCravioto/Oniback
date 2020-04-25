@@ -49,7 +49,8 @@ router.post('/login', (req, res, next) => {
 router.post('/profile', (req, res, next) => {
     console.log(req.body.userId)
     console.log(req.body.name)
-    User.updateOne({_id: req.body.userId}, {$set:{name: req.body.name}})
+    console.log(req.body.lastName)
+    User.updateOne({_id: req.body.userId}, {$set:{name: req.body.name, lastName: req.body.lastName, age: req.body.age}})
     .then( () => {
         return res.status(200).json({message: 'User Updated.'})
     }
