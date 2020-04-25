@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const memeSchema = new Schema({
   image: {type: String, required: true},
-  createdBy: {type:Schema.Types.ObjectId, ref:'User', required: true},
+  userId: {type:Schema.Types.ObjectId, ref:'User', required: true},
 
 //  avatar: { type: String, default: 'https://res.cloudinary.com/drakarzamael/image/upload/v1538631500/user.png' }
 //}, {
@@ -13,6 +13,6 @@ const memeSchema = new Schema({
 //   }
 });
 
-const meme = mongoose.model('Meme', memeSchema);
+const Meme = mongoose.model('Meme', memeSchema);
 
 module.exports = Meme;

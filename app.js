@@ -18,7 +18,8 @@ mongoose
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 
   app.use(
     cors({
@@ -28,9 +29,7 @@ mongoose
   );
 
 const routes = require('./routes/routes.js');
-const routes2 = require('./routes/auth.js');
 
 app.use('/', routes);
-app.use('/auth', routes2);
 
 module.exports = app;
