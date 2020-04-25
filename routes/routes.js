@@ -35,7 +35,8 @@ router.post('/login', (req, res, next) => {
             if(user && bcrypt.compareSync(req.body.password, user.password)) {
                 return res.status(200).json({
                 token: jwt.encode({userId: user._id}, secret),
-                userId: user._id});
+                userId: user._id,
+                username: user.name});
             }
 
             return res.status(404).json({message: 'Crendenciales Invalidas.'});
@@ -45,5 +46,17 @@ router.post('/login', (req, res, next) => {
         })
 });
 
+router.post('/profile', (req, res, next) => {
+    console.log(req.body.userId)
+    console.log(req.body.name)
+    User.updateOne({_Id: req.body.userId}, {$set:{name: req.body.name}})
+    .then( () => {
+        return res.status(200).json({message: 'User Updated.'})
+    }
+    )
+    .catch( error => {
+        return res.status(500).json(error);
+    })
+});
 
 module.exports = router;
