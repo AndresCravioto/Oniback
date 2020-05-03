@@ -30,10 +30,15 @@ mongoose
 
 const routes = require('./routes/routes.js');
 
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static('public'));
+
 app.use('/', routes);
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/public/index.html");
 });
+
 
 module.exports = app;
